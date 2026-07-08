@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mana Market</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f1f8e9;
+    margin:0;
+    padding:0;
+}
+.header{
+    background:#2e7d32;
+    color:white;
+    text-align:center;
+    padding:15px;
+}
+.card{
+    background:white;
+    margin:10px;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+button{
+    background:#2e7d32;
+    color:white;
+    border:none;
+    padding:10px;
+    width:100%;
+    border-radius:5px;
+    margin-top:5px;
+}
+input{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+}
+.veg{
+    border-bottom:1px solid #ddd;
+    padding:10px 0;
+}
+.total{
+    font-size:20px;
+    font-weight:bold;
+    color:#2e7d32;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>🛒 Mana Market</h1>
+<p>రైతు నుండి నేరుగా మీ ఇంటికి</p>
+</div>
+
+<div class="card">
+<h3>Fresh Vegetables</h3>
+
+<div class="veg">
+Brinjal (వంకాయ) - ₹30/kg
+<button onclick="addCart('Brinjal',30)">Add To Cart</button>
+</div>
+
+<div class="veg">
+Tomato (టమాటా) - ₹25/kg
+<button onclick="addCart('Tomato',25)">Add To Cart</button>
+</div>
+
+<div class="veg">
+Onion (ఉల్లిపాయ) - ₹40/kg
+<button onclick="addCart('Onion',40)">Add To Cart</button>
+</div>
+
+<div class="veg">
+Potato (బంగాళాదుంప) - ₹35/kg
+<button onclick="addCart('Potato',35)">Add To Cart</button>
+</div>
+
+</div>
+
+<div class="card">
+<h3>Cart</h3>
+<div id="cartItems">No items selected</div>
+
+<p class="total">
+Total: ₹<span id="total">0</span>
+</p>
+
+<button onclick="checkout()">
+Confirm Order
+</button>
+</div>
+
+<div class="card">
+<h3>Customer Details</h3>
+
+<input id="name" placeholder="Customer Name">
+
+<input id="mobile" placeholder="Mobile Number">
+
+<input id="address" placeholder="Address">
+
+</div>
+
+<script>
+
+let cart=[];
+let total=0;
+
+const PHONE="919876543210";
+
+function addCart(item,price){
+
+cart.push(item+" - ₹"+price);
+
+total+=price;
+
+document.getElementById("cartItems").innerHTML=
+cart.join("<br>");
+
+document.getElementById("total").innerText=total;
+
+}
+
+function checkout(){
+
+let customer=
+document.getElementById("name").value;
+
+let mobile=
+document.getElementById("mobile").value;
+
+let address=
+document.getElementById("address").value;
+
+if(customer==""){
+alert("Enter Customer Name");
+return;
+}
+
+let message=
+"Mana Market Order%0A%0A"+
+"Name: "+customer+"%0A"+
+"Mobile: "+mobile+"%0A"+
+"Address: "+address+"%0A%0A"+
+"Items:%0A"+
+cart.join("%0A")+
+"%0A%0ATotal: ₹"+total;
+
+window.open(
+"https://api.whatsapp.com/send?phone="+
+PHONE+
+"&text="+message
+);
+
+alert("Order Sent Successfully");
+
+}
+
+</script>
+
+</body>
+</html>
